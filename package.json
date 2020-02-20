@@ -1,0 +1,55 @@
+{
+  "name": "vuejs-chat",
+  "version": "0.0.1",
+  "description": "just chat",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "start": "nodemon ./stubs/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svetlyi/vuejs-chat.git"
+  },
+  "keywords": [
+    "vuejs"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/svetlyi/vuejs-chat/issues"
+  },
+  "homepage": "https://github.com/svetlyi/vuejs-chat",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "latest",
+    "uikit": "^3.3.1",
+    "vue": "2.6.11",
+    "vue-material": "1.0.0-beta-11",
+    "vue-router": "^3.1.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.8.3",
+    "@babel/core": "7.8.3",
+    "@babel/preset-env": "7.8.3",
+    "nodemon": "^2.0.2",
+    "babel-loader": "8.0.6",
+    "clean-webpack-plugin": "3.0.0",
+    "copy-webpack-plugin": "5.1.1",
+    "css-loader": "3.4.2",
+    "cssnano": "4.1.10",
+    "express": "4.17.1",
+    "file-loader": "5.0.2",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "postcss-import": "12.0.1",
+    "postcss-loader": "3.0.0",
+    "postcss-preset-env": "6.7.0",
+    "vue-loader": "15.8.3",
+    "vue-template-compiler": "2.6.11",
+    "webpack": "4.41.5",
+    "webpack-cli": "3.3.10",
+    "webpack-dev-middleware": "3.7.2",
+    "webpack-hot-client": "4.1.2"
+  }
+}
