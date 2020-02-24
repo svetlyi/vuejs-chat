@@ -1,5 +1,6 @@
 import auth from 'user/auth'
 import socketio from "socket.io-client";
+import notification from "./notifiation";
 
 let socket = null
 
@@ -14,11 +15,13 @@ Socket.prototype.getInst = () => {
         socket.on('connect_error', (err) => {
           socket = null
           console.log('socket: connect_error', err)
+          notification.send('socket connection error', 'danger')
           reject(err)
         })
         socket.on('error', (err) => {
           socket = null
           console.log('socket: error', err)
+          notification.send('socket error', 'danger')
           reject(err)
         })
         socket.on('connect', () => {

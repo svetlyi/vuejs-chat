@@ -5,7 +5,7 @@
                 <img class="uk-comment-avatar" src="/images/avatar.png" width="80" height="80" alt="">
             </div>
             <div class="uk-width-expand">
-                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h4>
+                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{authorName}}</a></h4>
                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                     <li><a href="#">12 days ago</a></li>
                 </ul>
@@ -22,7 +22,8 @@
 export default {
   name: 'Message',
   props: {
-    text: String
+    text: String,
+    authorName: String
   },
   components: {
   },

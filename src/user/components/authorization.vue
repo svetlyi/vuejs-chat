@@ -4,7 +4,7 @@
             <div class="uk-margin">
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: user"></span>
-                    <input class="uk-input" type="text" placeholder="Your username" v-model="username">
+                    <input class="uk-input" type="text" placeholder="Your name" v-model="name">
                 </div>
             </div>
             <div class="uk-margin">
@@ -31,20 +31,20 @@ export default {
   },
   data() {
     return {
-      username: '',
+      name: '',
       password: ''
     }
   },
   methods: {
     login: function() {
-      auth.login(this.username, this.password).then(() => {
+      auth.login(this.name, this.password).then(() => {
         this.$router.push({name: 'chat'})
       }).catch((err) => {
         alert(err)
       })
     },
     register: function() {
-      auth.register(this.username, this.password).then(() => {
+      auth.register(this.name, this.password).then(() => {
         this.$router.push({name: 'chat'})
       }).catch((err) => {
         alert(err)

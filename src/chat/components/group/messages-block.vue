@@ -4,6 +4,7 @@
             <message
                     v-for="message in messages" :key="message.id"
                     :text="message.text"
+                    :authorName="message.user.name"
             ></message>
         </div>
         <send-message v-on:message="sendMessage"></send-message>
@@ -13,24 +14,19 @@
 <script>
 import SendMessage from "../send-message";
 import Message from "../message";
-import messageService from "../../message"
+import sockets from "../../../sockets";
 
 export default {
   name: 'GroupMessagesBlock',
+  props: ['currentGroupId'],
   components: {SendMessage, Message},
   methods: {
     sendMessage: function(message) {
-      messageService.send(message).then(() => {
-        this.messages.push({
-          id: 126,
-          user: {
-            id: 126,
-            name: 'someuser'
-          },
-          date: Date.now(),
-          text: message
+      sockets.getInst().then(socket => {
+        socket.emit('chat-message', {text: message}, (message) => {
+          console.log(message)
+          this.messages.push(message)
         })
-
       })
     },
     scrollTop: function() {
@@ -43,6 +39,15 @@ export default {
   },
   updated: function() {
     this.scrollTop()
+  },
+  created: function() {
+    sockets.getInst().then(socket => {
+      console.log('subscribing')
+      socket.on('chat-message', message => {
+        console.log(message)
+        this.messages.push(message)
+      })
+    })
   },
   data() {
       return {

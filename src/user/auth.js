@@ -11,10 +11,10 @@ Auth.prototype.isAuthenticated = function () {
   return localStorage.getItem('auth_token') !== null
 }
 
-Auth.prototype.login = function (username, password) {
+Auth.prototype.login = function (name, password) {
   return new Promise((resolve, reject) => {
     chatAxios.getInst()
-      .post('/login', {username: username, password: password})
+      .post('/login', {name: name, password: password})
       .then(function (res) {
         if (200 === res.status) {
           localStorage.setItem('auth_token', res.data.token)
@@ -36,10 +36,10 @@ Auth.prototype.logout = function () {
   })
 }
 
-Auth.prototype.register = function (username, password) {
+Auth.prototype.register = function (name, password) {
   return new Promise((resolve, reject) => {
     chatAxios.getInst()
-      .post('/register', {username: username, password: password})
+      .post('/register', {name: name, password: password})
       .then(function (res) {
         if (200 === res.status) {
           localStorage.setItem('auth_token', res.data.token)

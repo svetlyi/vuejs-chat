@@ -6,9 +6,9 @@ function UserRepository() {}
 
 let users = []
 
-UserRepository.prototype.usernameExists = function (username) {
+UserRepository.prototype.nameExists = function (name) {
   for (let i = 0; i < users.length; i++) {
-    if (users[i].username === username) {
+    if (users[i].name === name) {
       return true
     }
   }
@@ -33,13 +33,23 @@ UserRepository.prototype.getUserByToken = function (token) {
   return null
 }
 
+UserRepository.prototype.setSocketId = function (token, socketId) {
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].token === token) {
+      users[i].socketId = socketId
+      return null
+    }
+  }
+  return null
+}
+
 UserRepository.prototype.getAll = function () {
   return users
 }
 
-UserRepository.prototype.login = function (username, password) {
+UserRepository.prototype.login = function (name, password) {
   for (let i = 0; i < users.length; i++) {
-    if (users[i].username === username && users[i].password === password) {
+    if (users[i].name === name && users[i].password === password) {
       let token = crypto.randomBytes(20).toString('hex');
       users[i].setToken(token)
       return token
@@ -48,9 +58,9 @@ UserRepository.prototype.login = function (username, password) {
   return null
 }
 
-UserRepository.prototype.logout = function (username, password) {
+UserRepository.prototype.logout = function (name, password) {
   for (let i = 0; i < users.length; i++) {
-    if (users[i].username === username && users[i].password === password) {
+    if (users[i].name === name && users[i].password === password) {
       users[i].setToken(null)
       return true
     }
@@ -58,8 +68,8 @@ UserRepository.prototype.logout = function (username, password) {
   return false
 }
 
-UserRepository.prototype.register = function (username, password) {
-  let user = new User(username, password);
+UserRepository.prototype.register = function (name, password) {
+  let user = new User(name, password);
   users.push(user)
 }
 

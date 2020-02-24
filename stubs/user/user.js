@@ -1,5 +1,5 @@
-function User(username, password) {
-  this.username = username
+function User(name, password) {
+  this.name = name
   this.password = password
 }
 
