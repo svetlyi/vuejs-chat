@@ -1,5 +1,5 @@
 import Axios from "axios";
-import auth from "./user/auth";
+import auth from "./user/repository/user";
 
 function ChatAxios() {}
 

@@ -12,6 +12,11 @@
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav">
                     <li>
+                        <a href="#" @click.stop.prevent="userSettings">
+                            <span uk-icon="user"></span> <span class="uk-margin-small-left">{{username}}</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" @click.stop.prevent="exit">
                             <span uk-icon="sign-out"></span> <span class="uk-margin-small-left">Exit</span>
                         </a>
@@ -31,7 +36,7 @@
   import ChooseUser from "./choose-user";
   import ChooseGroup from "./choose-group";
   import GroupMessagesBlock from "./group/messages-block";
-  import auth from "../../user/auth";
+  import userRepository from "../../user/repository/user";
 
   export default {
     name: 'chat',
@@ -47,14 +52,22 @@
         ],
       }
     },
+    computed: {
+      username: function() {
+        return 'blalaa'
+      }
+    },
     methods: {
       exit: function () {
-        auth.logout().then(() => {
+        userRepository.logout().then(() => {
           this.$router.push({name: 'authorization'})
         })
       },
       chooseGroup: function (groupId) {
         this.currentGroupId = groupId
+      },
+      userSettings: function() {
+        this.$router.push({name: 'userSettings'})
       }
     }
   }

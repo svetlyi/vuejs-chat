@@ -13,6 +13,12 @@
                     <input class="uk-input" type="text" placeholder="Your password" v-model="password">
                 </div>
             </div>
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                    <input class="uk-input" type="text" placeholder="Repeat password" v-model="repeatPassword">
+                </div>
+            </div>
             <div uk-grid>
                 <div><button class="uk-button uk-button-primary" @click.prevent.stop="login">Login</button></div>
                 <div><button class="uk-button uk-button-default" @click.prevent.stop="register">Register</button></div>
@@ -22,29 +28,23 @@
 </template>
 
 <script>
-import userRepository from '../repository/user'
+import user from '../repository/user'
 
 export default {
-  name: 'Authorization',
+  name: 'UserSettings',
   props: {
     items: Array
   },
   data() {
     return {
       name: '',
-      password: ''
+      password: '',
+      repeatPassword: ''
     }
   },
   methods: {
-    login: function() {
-      userRepository.login(this.name, this.password).then(() => {
-        this.$router.push({name: 'chat'})
-      }).catch((err) => {
-        alert(err)
-      })
-    },
-    register: function() {
-      userRepository.register(this.name, this.password).then(() => {
+    save: function() {
+      user.login(this.name, this.password).then(() => {
         this.$router.push({name: 'chat'})
       }).catch((err) => {
         alert(err)

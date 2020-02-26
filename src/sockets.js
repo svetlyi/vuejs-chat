@@ -1,6 +1,8 @@
-import auth from 'user/auth'
+import auth from 'user/repository/user'
 import socketio from "socket.io-client";
 import notification from "./notifiation";
+import errors from "./errors";
+import router from './router'
 
 let socket = null
 
@@ -18,10 +20,13 @@ Socket.prototype.getInst = () => {
           notification.send('socket connection error', 'danger')
           reject(err)
         })
-        socket.on('error', (err) => {
+        socket.on('error', err => {
           socket = null
+          if (errors.authenticationError === err) {
+            auth.logout()
+            router.push('authorization')
+          }
           console.log('socket: error', err)
-          notification.send('socket error', 'danger')
           reject(err)
         })
         socket.on('connect', () => {

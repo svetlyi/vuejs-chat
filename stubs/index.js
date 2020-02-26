@@ -43,7 +43,7 @@ io.use((socket, next) => {
     return next();
   }
   console.log('sockets: authentication error')
-  return next(new Error('authentication error'));
+  return next(new Error('authentication_error'));
 });
 
 io.on('connection', function(socket){
