@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
     && '/api/login' !== req.originalUrl
     && '/api/register' !== req.originalUrl
   ) {
-    res.status(401).send()
+    res.status(401).header('Content-Type', 'application/json').send({error: 'you\'re not authorized'})
   } else {
     next()
   }

@@ -48,7 +48,6 @@ module.exports = {
       {from: 'stubs/index.html'},
       {from: 'src/__data__/images/avatar.png', to: 'images/avatar.png'},
       {from: 'node_modules/vue/dist/vue.min.js', to: 'extLib/vue.min.js'},
-      {from: 'node_modules/vue-material/dist/vue-material.min.js', to: 'extLib/vue-material.min.js'}
     ])
   ],
   externals: {

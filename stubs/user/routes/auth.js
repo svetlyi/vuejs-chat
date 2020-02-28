@@ -5,7 +5,7 @@ const userRepository = require('../repository/user')
 router.post('/login', function (req, res) {
   let token = userRepository.login(req.body.name, req.body.password)
   if (token === null) {
-    res.status(401).send()
+    res.status(401).header('Content-Type', 'application/json').send({error: 'no such user'})
   } else {
     res
       .header('Content-Type', 'application/json')
@@ -17,7 +17,7 @@ router.post('/login', function (req, res) {
 
 router.post('/logout', function (req, res) {
   if (userRepository.logout(req.body.name, req.body.password)) {
-    res.status(404).send()
+    res.status(404).header('Content-Type', 'application/json').send({error: 'user not found'})
   } else {
     res.status(200).send()
   }

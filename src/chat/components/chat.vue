@@ -53,8 +53,8 @@
       }
     },
     computed: {
-      username: function() {
-        return 'blalaa'
+      username () {
+        return this.$store.state.user.name
       }
     },
     methods: {

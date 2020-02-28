@@ -20,8 +20,7 @@
                 </div>
             </div>
             <div uk-grid>
-                <div><button class="uk-button uk-button-primary" @click.prevent.stop="login">Login</button></div>
-                <div><button class="uk-button uk-button-default" @click.prevent.stop="register">Register</button></div>
+                <div><button class="uk-button uk-button-primary" @click.prevent.stop="login">Save</button></div>
             </div>
         </form>
     </div>

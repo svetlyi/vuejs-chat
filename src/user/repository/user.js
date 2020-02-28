@@ -24,7 +24,8 @@ User.prototype.login = function (name, password) {
         }
       })
       .catch(function (err) {
-        console.log(err);
+        console.log(err.response.data.error);
+        reject(err.response.data.error)
       });
   })
 }
@@ -49,7 +50,8 @@ User.prototype.register = function (name, password) {
         }
       })
       .catch(function (err) {
-        console.log(err);
+        console.log(err)
+        reject(err.response.data.error)
       });
   })
 }

@@ -52,33 +52,6 @@ export default {
   data() {
       return {
         messages: [
-          {
-            id: 123,
-            user: {
-              id: 123,
-              name: 'someuser'
-            },
-            date: Date.now(),
-            text: 'Hello, darkness'
-          },
-          {
-            id: 124,
-            user: {
-              id: 123,
-              name: 'someuser'
-            },
-            date: Date.now(),
-            text: 'Hello, darkness'
-          },
-          {
-            id: 125,
-            user: {
-              id: 123,
-              name: 'someuser'
-            },
-            date: Date.now(),
-            text: 'Hello, darkness'
-          }
         ]
       }
   },

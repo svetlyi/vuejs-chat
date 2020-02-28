@@ -1,6 +1,6 @@
 import auth from 'user/repository/user'
 import socketio from "socket.io-client";
-import notification from "./notifiation";
+import notification from "./notification";
 import errors from "./errors";
 import router from './router'
 
