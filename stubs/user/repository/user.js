@@ -51,7 +51,7 @@ UserRepository.prototype.login = function (name, password) {
   for (let i = 0; i < users.length; i++) {
     if (users[i].name === name && users[i].password === password) {
       let token = crypto.randomBytes(20).toString('hex');
-      users[i].setToken(token)
+      users[i].token = token
       return token
     }
   }
@@ -61,7 +61,19 @@ UserRepository.prototype.login = function (name, password) {
 UserRepository.prototype.logout = function (name, password) {
   for (let i = 0; i < users.length; i++) {
     if (users[i].name === name && users[i].password === password) {
-      users[i].setToken(null)
+      users[i].token = null
+      return true
+    }
+  }
+  return false
+}
+
+UserRepository.prototype.updateByToken = function (token, name, password, age) {
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].token === token) {
+      users[i].name = name
+      users[i].password = password
+      users[i].age = age
       return true
     }
   }

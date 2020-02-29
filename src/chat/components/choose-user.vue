@@ -14,18 +14,18 @@ import userRepository from "../../user/repository/user";
 
 export default {
   name: 'ChooseUser',
-  props: {
-    users: Array
+  data() {
+    return {
+      currentUserName: '',
+      users: []
+    }
   },
   components: {
-  },
-  data() {
-      return {
-      }
   },
   created() {
     userRepository.list()
       .then((users) => {
+        console.log('got', users.length, 'users')
         this.users = users
       })
       .catch(alert)

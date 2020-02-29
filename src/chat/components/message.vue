@@ -7,10 +7,13 @@
         <div class="uk-width-auto">
             <div class="uk-card uk-card-body uk-card-small uk-card-default uk-border-rounded">
                 <div class="uk-card-title" v-if="!isCurUsrMsg">
-                    <span>{{authorName}}</span>
+                    <span>{{message.user.name}}</span>
                     <hr>
                 </div>
-                <p class="uk-margin-remove">{{text}}</p>
+                <div class="uk-card-media-bottom sticker" v-if="message.sticker && message.sticker.length > 0">
+                    <img :src="message.sticker" alt="">
+                </div>
+                <p class="uk-margin-remove" v-if="message.text.length > 0">{{message.text}}</p>
             </div>
         </div>
     </div>
@@ -21,8 +24,7 @@
   export default {
     name: 'Message',
     props: {
-      text: String,
-      authorName: String
+      message: Object
     },
     components: {},
     data() {
@@ -30,7 +32,7 @@
     },
     computed: {
       isCurUsrMsg: function () {
-        return this.authorName === this.$store.state.user.name
+        return this.message.user.name === this.$store.state.user.name
       }
     },
     created: function () {
@@ -49,5 +51,9 @@
     }
     .uk-card {
         padding-top: 0;
+    }
+    .sticker img {
+        width: 100px;
+        height: 100px;
     }
 </style>

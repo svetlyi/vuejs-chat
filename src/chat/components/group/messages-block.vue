@@ -1,13 +1,15 @@
 <template>
     <div>
-        <div class="messages-block uk-width-1-1" id="messages-block">
+        <div class="messages-block uk-width-1-1" ref="messages-block">
             <message
                     v-for="message in messages" :key="message.id"
-                    :text="message.text"
-                    :authorName="message.user.name"
+                    :message="message"
             ></message>
         </div>
-        <send-message v-on:message="sendMessage"></send-message>
+        <send-message
+                v-on:message="sendMessage"
+                v-on:sticker="sendSticker"
+        ></send-message>
     </div>
 </template>
 
@@ -20,17 +22,31 @@ export default {
   name: 'GroupMessagesBlock',
   props: ['currentGroupId'],
   components: {SendMessage, Message},
+  data() {
+    return {
+      messages: [
+      ]
+    }
+  },
   methods: {
     sendMessage: function(message) {
       sockets.getInst().then(socket => {
         socket.emit('chat-message', {text: message}, (message) => {
-          console.log(message)
+          console.log('chat-message', message)
+          this.messages.push(message)
+        })
+      })
+    },
+    sendSticker: function(sticker) {
+      sockets.getInst().then(socket => {
+        socket.emit('chat-message', {text: '', sticker: sticker}, (message) => {
+          console.log('chat-message with sticker', message)
           this.messages.push(message)
         })
       })
     },
     scrollTop: function() {
-      let container = this.$el.querySelector('#messages-block');
+      let container = this.$refs['messages-block'];
       container.scrollTop = container.scrollHeight;
     }
   },
@@ -42,18 +58,17 @@ export default {
   },
   created: function() {
     sockets.getInst().then(socket => {
-      console.log('subscribing')
+      console.log("subscribing to 'chat-message'")
       socket.on('chat-message', message => {
-        console.log(message)
+        console.log("'chat-message': received a message", message)
         this.messages.push(message)
       })
     })
   },
-  data() {
-      return {
-        messages: [
-        ]
-      }
-  },
+  watch: {
+    currentGroupId: function() {
+      this.messages.splice(0, this.messages.length)
+    }
+  }
 }
 </script>

@@ -16,7 +16,6 @@
 </template>
 
 <script>
-
   import groupRepository from "../../group/repository/group";
   import notification from "../../notification"
   import socket from "../../sockets";

@@ -1,4 +1,4 @@
-import auth from 'user/repository/user'
+import userRepo from 'user/repository/user'
 import socketio from "socket.io-client";
 import notification from "./notification";
 import errors from "./errors";
@@ -11,8 +11,9 @@ function Socket() {}
 Socket.prototype.getInst = () => {
   return new Promise((resolve, reject) => {
     if (null === socket) {
-      let token = auth.getToken()
+      let token = userRepo.getToken()
       if (null !== token) {
+        console.log('socket token', token)
         socket = socketio('http://localhost:3000/?token=' + token)
         socket.on('connect_error', (err) => {
           socket = null
@@ -23,7 +24,7 @@ Socket.prototype.getInst = () => {
         socket.on('error', err => {
           socket = null
           if (errors.authenticationError === err) {
-            auth.logout()
+            userRepo.logout()
             router.push('authorization')
           }
           console.log('socket: error', err)

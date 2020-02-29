@@ -1,5 +1,5 @@
 const userRepository = require('./user/repository/user')
-const authRoutes = require('./user/routes/auth')
+const userRoutes = require('./user/routes/user')
 const groupRoutes = require('./group/routes/group')
 const express = require('express');
 const path = require('path');
@@ -13,18 +13,21 @@ app.use(express.json())
 
 app.use(function (req, res, next) {
   if (
-    !req.headers.auth_token
-    && 0 === req.originalUrl.indexOf('/api')
-    && '/api/login' !== req.originalUrl
-    && '/api/register' !== req.originalUrl
+    ['/api/login', '/api/register'].indexOf(req.originalUrl) !== -1
+    || req.originalUrl.indexOf('/api') !== 0
   ) {
-    res.status(401).header('Content-Type', 'application/json').send({error: 'you\'re not authorized'})
-  } else {
     next()
+    return
   }
+  if (req.headers.auth_token && userRepository.isAuthenticated(req.headers.auth_token)) {
+    next()
+    return
+  }
+
+  res.status(401).header('Content-Type', 'application/json').send({error: 'you\'re not authorized'})
 })
 
-app.use('/api', authRoutes)
+app.use('/api', userRoutes)
 app.use('/api', groupRoutes)
 
 app.get('/app/*', function (req, res) {
@@ -47,10 +50,10 @@ io.use((socket, next) => {
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected: ' + socket.handshake.query.token);
+  console.log('a user connected with token', socket.handshake.query.token);
   userRepository.setSocketId(socket.handshake.query.token, socket.id)
   socket.on('disconnect', function(){
-    console.log('a user disconnected: ' + socket.handshake.query.token);
+    console.log('a user disconnected with token', socket.handshake.query.token);
   });
   socket.on('join-group', function(data, callback){
     let sender = userRepository.getUserByToken(socket.handshake.query.token)

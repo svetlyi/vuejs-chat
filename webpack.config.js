@@ -47,6 +47,9 @@ module.exports = {
     new webpackCopy([
       {from: 'stubs/index.html'},
       {from: 'src/__data__/images/avatar.png', to: 'images/avatar.png'},
+      {from: 'src/__data__/images/stickers/running.png', to: 'images/smiles/running.png'},
+      {from: 'src/__data__/images/stickers/smiling.png', to: 'images/smiles/smiling.png'},
+      {from: 'src/__data__/images/stickers/walking.png', to: 'images/smiles/walking.png'},
       {from: 'node_modules/vue/dist/vue.min.js', to: 'extLib/vue.min.js'},
     ])
   ],

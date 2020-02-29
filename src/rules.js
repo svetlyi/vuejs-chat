@@ -1,5 +1,10 @@
 import {extend} from 'vee-validate';
+import { confirmed } from 'vee-validate/dist/rules';
 
+extend('confirmed', {
+  ...confirmed,
+  message: 'Fields should match'
+})
 extend('max', {
   validate(value, args) {
     return value.length <= args.max;
@@ -14,6 +19,16 @@ extend('min', {
   },
   message: '{_field_} is minimum {min} symbols length',
   params: ['min']
+});
+
+extend('positive', {
+  validate(value, args) {
+    if ([undefined, null].indexOf(value) !== -1) {
+      return true
+    }
+    return parseInt(value) >= 0 && parseInt(value) == value;
+  },
+  message: '{_field_} should be positive number'
 });
 
 extend('required', {

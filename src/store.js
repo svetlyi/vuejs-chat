@@ -12,6 +12,9 @@ const store = new Vuex.Store({
   mutations: {
     set_user (state, user) {
       state.user = user
+    },
+    restore_user (state, user) {
+      state.user = localStorage.getItem('user')
     }
   }
 })

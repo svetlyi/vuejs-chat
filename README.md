@@ -6,7 +6,7 @@ Just a simple chat.
 
 * Group chat
 * Private chat
-* Files uploading
+* Stickers
 * Charts with locations, messages of users (statistics)
 
 ## API

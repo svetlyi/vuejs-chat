@@ -24,7 +24,7 @@
                 </ul>
             </div>
         </nav>
-        <choose-user :users="users"></choose-user>
+        <choose-user></choose-user>
         <choose-group v-on:choose-group="chooseGroup"></choose-group>
         <group-messages-block v-if="currentGroupId !== null" v-bind:currentGroupId="currentGroupId">
         </group-messages-block>
@@ -43,13 +43,7 @@
     components: {GroupMessagesBlock, ChooseGroup, ChooseUser},
     data() {
       return {
-        currentGroupId: null,
-        users: [
-          {
-            id: 123,
-            name: 'asdasd',
-          }
-        ],
+        currentGroupId: null
       }
     },
     computed: {
