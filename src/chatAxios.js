@@ -1,5 +1,6 @@
 import Axios from "axios";
 import auth from "./user/repository/user";
+import config from "./config";
 
 function ChatAxios() {}
 
@@ -14,7 +15,7 @@ ChatAxios.prototype.getInst = function () {
 
   if (null === instance) {
     let axiosConfig = {
-      baseURL: 'http://localhost:3000/api/',
+      baseURL: config.serverAddress + '/api/',
       timeout: 1000,
       headers: {AUTH_TOKEN: authToken}
     };

@@ -1,14 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const crypto = require("crypto");
 
 let groups = [
   {
-    id: crypto.randomBytes(16).toString("hex"),
+    id: 0,
     name: 'vue-courses'
   },
   {
-    id: crypto.randomBytes(16).toString("hex"),
+    id: 1,
     name: 'some guys'
   },
 ];

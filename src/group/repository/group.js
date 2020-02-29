@@ -16,6 +16,7 @@ Group.prototype.list = function () {
       })
       .catch(function (err) {
         console.log(err);
+        reject(err.response.data.error)
       });
   })
 }

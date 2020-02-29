@@ -47,15 +47,6 @@ router.post('/register', function (req, res, next) {
   }
 })
 
-router.get('/user', function (req, res) {
-  res.status(200)
-    .header('Content-Type', 'application/json')
-    .send(
-      userRepository.getAll()
-        .map(user => {return {name: user.name}})
-    )
-})
-
 router.get('/user/current', function (req, res) {
   res.status(200)
     .header('Content-Type', 'application/json')

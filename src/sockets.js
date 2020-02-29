@@ -3,6 +3,7 @@ import socketio from "socket.io-client";
 import notification from "./notification";
 import errors from "./errors";
 import router from './router'
+import config from "./config";
 
 let socket = null
 
@@ -14,7 +15,7 @@ Socket.prototype.getInst = () => {
       let token = userRepo.getToken()
       if (null !== token) {
         console.log('socket token', token)
-        socket = socketio('http://localhost:3000/?token=' + token)
+        socket = socketio(config.socketsAddress + '/?token=' + token)
         socket.on('connect_error', (err) => {
           socket = null
           console.log('socket: connect_error', err)

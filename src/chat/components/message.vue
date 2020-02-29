@@ -13,7 +13,7 @@
                 <div class="uk-card-media-bottom sticker" v-if="message.sticker && message.sticker.length > 0">
                     <img :src="message.sticker" alt="">
                 </div>
-                <p class="uk-margin-remove" v-if="message.text.length > 0">{{message.text}}</p>
+                <p class="uk-margin-remove" v-if="message.text && message.text.length > 0">{{message.text}}</p>
             </div>
         </div>
     </div>
@@ -26,16 +26,10 @@
     props: {
       message: Object
     },
-    components: {},
-    data() {
-      return {}
-    },
     computed: {
       isCurUsrMsg: function () {
         return this.message.user.name === this.$store.state.user.name
       }
-    },
-    created: function () {
     }
   }
 </script>
@@ -45,15 +39,18 @@
         hr {
             margin: 0;
         }
+
         span {
             font-size: 10pt;
         }
     }
+
     .uk-card {
         padding-top: 0;
-    }
-    .sticker img {
-        width: 100px;
-        height: 100px;
+
+        .sticker img {
+            width: 100px;
+            height: 100px;
+        }
     }
 </style>

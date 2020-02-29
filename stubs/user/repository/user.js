@@ -43,10 +43,6 @@ UserRepository.prototype.setSocketId = function (token, socketId) {
   return null
 }
 
-UserRepository.prototype.getAll = function () {
-  return users
-}
-
 UserRepository.prototype.login = function (name, password) {
   for (let i = 0; i < users.length; i++) {
     if (users[i].name === name && users[i].password === password) {

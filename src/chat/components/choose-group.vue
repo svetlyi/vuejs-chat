@@ -26,7 +26,7 @@
     components: {},
     data() {
       return {
-        currentGroupId: '',
+        currentGroupId: null,
         groups: []
       }
     },

@@ -90,6 +90,7 @@ User.prototype.list = function () {
         }
       })
       .catch(function (err) {
+        reject(err.response.data.error)
         console.log(err);
       });
   })
@@ -107,6 +108,7 @@ User.prototype.getUser = function () {
         }
       })
       .catch(function (err) {
+        reject(err.response.data.error)
         console.log(err);
       });
   })
