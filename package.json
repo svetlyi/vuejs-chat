@@ -4,6 +4,7 @@
   "description": "just chat",
   "main": "index.js",
   "scripts": {
+    "prod": "webpack --mode production",
     "build": "webpack --mode development",
     "start": "nodemon ./stubs/server.js"
   },
