@@ -1,10 +1,8 @@
 <template>
     <div class="uk-position-center uk-align-center">
-
-    <div class="uk-container">
-
-
-        <ValidationObserver v-slot="{ dirty, invalid, handleSubmit }">
+        <div class="uk-container">
+            <h3 class="uk-heading-divider">Welcome to our chat</h3>
+            <ValidationObserver v-slot="{ dirty, invalid, handleSubmit }">
                 <form class="uk-width-medium@m uk-width-1-1 uk-grid-small" uk-grid>
                     <div class="uk-width-1-1">
                         <ValidationProvider rules="required|max:10" v-slot="{ errors, dirty }" name="name">
@@ -48,7 +46,7 @@
                         </div>
                     </template>
                 </form>
-        </ValidationObserver>
+            </ValidationObserver>
         </div>
 
     </div>

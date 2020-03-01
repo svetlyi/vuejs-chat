@@ -9,6 +9,11 @@
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav">
                     <li>
+                        <router-link :to="{name: 'userStats'}">
+                            <span uk-icon="info"></span>
+                        </router-link>
+                    </li>
+                    <li>
                         <router-link :to="{name: 'userSettings'}">
                             <span uk-icon="user"></span> <span class="uk-margin-small-left">{{username}}</span>
                         </router-link>

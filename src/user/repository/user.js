@@ -78,10 +78,10 @@ User.prototype.save = function (user) {
   })
 }
 
-User.prototype.list = function () {
+User.prototype.getStats = function () {
   return new Promise((resolve, reject) => {
     chatAxios.getInst()
-      .get('/user')
+      .get('/user/stats')
       .then(function (res) {
         if (200 === res.status) {
           resolve(res.data)

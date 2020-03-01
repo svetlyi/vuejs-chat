@@ -55,6 +55,21 @@ router.get('/user/current', function (req, res) {
     )
 })
 
+router.get('/user/stats', function (req, res) {
+  let ages = userRepository.findAll().map(user => user.age);
+  let stats = {}
+  for (let i = 0; i < ages.length; i++) {
+    if (!stats[ages[i]]) {
+      stats[ages[i]] = 1
+    } else {
+      stats[ages[i]]++
+    }
+  }
+  res.status(200)
+    .header('Content-Type', 'application/json')
+    .send(stats)
+})
+
 router.put('/user', function (req, res) {
   let user = userRepository.getUserByToken(req.headers.auth_token);
   console.log(req.headers.auth_token, user.token)
