@@ -20,7 +20,7 @@
 
   export default {
     name: 'GroupMessages',
-    props: ['groupId'],
+    props: ['groupId', 'initialMessages'],
     components: {SendMessage, Message},
     data() {
       return {
@@ -48,6 +48,12 @@
       scrollTop: function () {
         let container = this.$refs['messages-block'];
         container.scrollTop = container.scrollHeight;
+      },
+      fillWithInitialMessages: function () {
+        this.messages.splice(0, this.messages.length)
+        for (let i = 0; i < this.initialMessages.length; i++) {
+          this.messages.push(this.initialMessages[i])
+        }
       }
     },
     mounted: function () {
@@ -57,6 +63,7 @@
       this.scrollTop()
     },
     created: function () {
+      this.fillWithInitialMessages()
       sockets.getInst().then(socket => {
         console.log("subscribing to 'chat-message'")
         socket.on('chat-message', message => {
@@ -67,7 +74,7 @@
     },
     watch: {
       groupId: function () {
-        this.messages.splice(0, this.messages.length)
+        this.fillWithInitialMessages()
       }
     }
   }

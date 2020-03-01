@@ -1,6 +1,8 @@
 const crypto = require("crypto");
 const userRepository = require('./user/repository/user')
 
+let messagesInRooms = [];
+
 module.exports = function(io) {
   io.use((socket, next) => {
     let token = socket.handshake.query.token;
@@ -23,7 +25,10 @@ module.exports = function(io) {
       let sender = userRepository.getUserByToken(socket.handshake.query.token)
       console.log(sender.name, 'joined group', data.groupId)
       socket.join(data.groupId);
-      callback()
+      if (!messagesInRooms[data.groupId]) {
+        messagesInRooms[data.groupId] = []
+      }
+      callback(messagesInRooms[data.groupId])
     });
     socket.on('chat-message', function(message, callback){
       let room = Object.keys(socket.rooms).filter(room => room !== socket.id).pop()
@@ -34,6 +39,10 @@ module.exports = function(io) {
       message['user'] = {
         name: sender.name
       }
+      if (!messagesInRooms[room]) {
+        messagesInRooms[room] = []
+      }
+      messagesInRooms[room].push(message)
       socket.to(room).emit('chat-message', message)
       callback(message)
     });

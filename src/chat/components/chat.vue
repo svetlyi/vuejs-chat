@@ -22,7 +22,11 @@
             </div>
         </nav>
         <choose-group v-on:choose-group="chooseGroup"></choose-group>
-        <group-messages v-if="currentGroupId !== null" v-bind:groupId="currentGroupId">
+        <group-messages
+                v-if="currentGroupId !== null"
+                v-bind:groupId="currentGroupId"
+                :initialMessages="initialMessages"
+        >
         </group-messages>
         <div v-else class="no-group-message">Please, choose a group or user to chat with</div>
     </div>
@@ -38,7 +42,8 @@
     components: {GroupMessages, ChooseGroup},
     data() {
       return {
-        currentGroupId: null
+        currentGroupId: null,
+        initialMessages: []
       }
     },
     computed: {
@@ -52,8 +57,9 @@
           this.$router.push({name: 'authorization'})
         })
       },
-      chooseGroup: function (groupId) {
-        this.currentGroupId = groupId
+      chooseGroup: function (groupInfo) {
+        this.currentGroupId = groupInfo.groupId
+        this.initialMessages = groupInfo.messages
       }
     }
   }

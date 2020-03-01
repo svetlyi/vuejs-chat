@@ -34,9 +34,10 @@
       chooseGroup: function (groupId) {
         socket.getInst()
           .then((socket) => {
-            socket.emit('join-group', {groupId: groupId}, () => {
+            socket.emit('join-group', {groupId: groupId}, (messages) => {
+              console.log('messages in group:', messages.length)
               this.currentGroupId = groupId
-              this.$emit('choose-group', groupId)
+              this.$emit('choose-group', {groupId, messages})
               UIkit.offcanvas(this.$refs['choose-group-list']).hide();
             })
           }).catch((err) => {
