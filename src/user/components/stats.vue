@@ -74,7 +74,7 @@
             }
           },
           series: [{
-            name: 'Brands',
+            name: 'Ages',
             colorByPoint: true,
             data: statsToShow
           }]
