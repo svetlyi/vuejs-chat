@@ -32,11 +32,15 @@
                             <span class="form-error-block" v-for="error in errors">{{ error }}</span>
                         </div>
                     </ValidationProvider>
-                    <ValidationProvider rules="required|strong_password|min:6|confirmed:pass_conf" v-slot="{ errors, dirty }" name="password">
+                    <ValidationProvider
+                            rules="required|has_special|has_alpha|has_upper_alpha|has_digits|min:6|confirmed:pass_conf"
+                            v-slot="{ errors, dirty }"
+                            name="password"
+                    >
                         <div class="uk-margin">
                             <div class="uk-inline uk-width-1-1">
                                 <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-                                <input class="uk-input" type="password" placeholder="Your password" v-model="password">
+                                <input class="uk-input" type="password" placeholder="Your new password" v-model="password">
                             </div>
                         </div>
                         <div class="uk-margin-small">
@@ -47,7 +51,7 @@
                     <div class="uk-margin">
                         <div class="uk-inline uk-width-1-1">
                             <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-                            <input class="uk-input" type="password" placeholder="Repeat password" v-model="pass_conf">
+                            <input class="uk-input" type="password" placeholder="Repeat your new password" v-model="pass_conf">
                         </div>
                         <div class="uk-margin-small">
                             <span class="form-error-block" v-for="error in errors">{{ error }}</span>

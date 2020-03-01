@@ -1,5 +1,5 @@
 import {extend} from 'vee-validate';
-import { confirmed } from 'vee-validate/dist/rules';
+import { confirmed, required } from 'vee-validate/dist/rules';
 
 extend('confirmed', {
   ...confirmed,
@@ -32,62 +32,60 @@ extend('positive', {
 });
 
 extend('required', {
-  validate(value) {
-    return {
-      required: true,
-      valid: ['', null, undefined].indexOf(value) === -1
-    };
-  },
-  message: '{_field_} is required',
-  computesRequired: true
+  ...required,
+  message: '{_field_} is required'
 });
 
-function getPasswordWeakness(password) {
-  let weakness = null
-  let rules = [
-    {
-      symbols: '!@#$%^&*()_+=/?\\~`',
-      message: 'Consider using special symbols such as \'!@#$%-^&*()_+=/?\\\\~`\''
-    },
-    {
-      symbols: 'qwertyuioplkjhgfdsazxcvbnm',
-      message: 'The password must include at least one lower case letter'
-    },
-    {
-      symbols: 'QWERTYUIOPLKJHGFDSAZXCVBNM',
-      message: 'The password must include at least one upper case letter'
-    },
-    {
-      symbols: '1234567890',
-      message: 'The password must include at least one digit'
-    },
-  ]
-  for (let ruleIndex = 0; ruleIndex < rules.length; ruleIndex++) {
-    let hasSym = false
-    for (let sIndex = 0; sIndex < rules[ruleIndex].symbols.length; sIndex++) {
-      if (password.indexOf(rules[ruleIndex].symbols[sIndex]) !== -1) {
-        hasSym = true
-        break;
+extend('has_special', {
+  validate(value, args) {
+    let specials = '!@#$%^&*()_+=/?\\~`'
+    for (let sIndex = 0; sIndex < specials.length; sIndex++) {
+      if (value.indexOf(specials[sIndex]) !== -1) {
+        return true
       }
     }
-    if (!hasSym) {
-      weakness = rules[ruleIndex].message
-      break
-    }
-  }
-
-  return weakness
-}
-
-extend('strong_password', function v() {
-  this.validate = (value) => {
-    this.weakness = getPasswordWeakness(value);
-    return null === this.weakness
-  }
-  this.message = () => {
-    return this.weakness
+    return false
   },
-  this.computesRequired = true
+  message: 'Consider using special symbols such as \'!@#$%-^&*()_+=/?\\\\~`\''
+});
+
+extend('has_alpha', {
+  validate(value, args) {
+    let alpha = 'qwertyuioplkjhgfdsazxcvbnm'
+    for (let sIndex = 0; sIndex < alpha.length; sIndex++) {
+      if (value.indexOf(alpha[sIndex]) !== -1) {
+        return true
+      }
+    }
+    return false
+  },
+  message: '{_field_} must include at least one lower case letter'
+});
+
+extend('has_upper_alpha', {
+  validate(value, args) {
+    let alpha = 'QWERTYUIOPLKJHGFDSAZXCVBNM'
+    for (let sIndex = 0; sIndex < alpha.length; sIndex++) {
+      if (value.indexOf(alpha[sIndex]) !== -1) {
+        return true
+      }
+    }
+    return false
+  },
+  message: '{_field_} must include at least one upper case letter'
+});
+
+extend('has_digits', {
+  validate(value, args) {
+    let digits = '1234567890'
+    for (let sIndex = 0; sIndex < digits.length; sIndex++) {
+      if (value.indexOf(digits[sIndex]) !== -1) {
+        return true
+      }
+    }
+    return false
+  },
+  message: '{_field_} must include at least one digit'
 });
 
 export default extend
