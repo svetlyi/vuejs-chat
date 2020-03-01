@@ -23,6 +23,8 @@
           '/images/smiles/running.png',
           '/images/smiles/walking.png',
           '/images/smiles/smiling.png',
+          '/images/smiles/thumb.png',
+          '/images/smiles/dislike.png'
         ]
       }
     },

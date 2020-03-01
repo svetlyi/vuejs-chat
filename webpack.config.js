@@ -50,6 +50,8 @@ module.exports = {
       {from: 'src/__data__/images/stickers/running.png', to: 'images/smiles/running.png'},
       {from: 'src/__data__/images/stickers/smiling.png', to: 'images/smiles/smiling.png'},
       {from: 'src/__data__/images/stickers/walking.png', to: 'images/smiles/walking.png'},
+      {from: 'src/__data__/images/stickers/thumb.png', to: 'images/smiles/thumb.png'},
+      {from: 'src/__data__/images/stickers/dislike.png', to: 'images/smiles/dislike.png'},
       {from: 'node_modules/vue/dist/vue.min.js', to: 'extLib/vue.min.js'},
     ])
   ],
